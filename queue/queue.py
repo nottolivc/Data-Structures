@@ -8,21 +8,55 @@ return elements in First In First Out order.
    as the underlying storage structure.
    Make sure the Queue tests pass.
 3. What is the difference between using an array vs. a linked list when 
-   implementing a Queue?
-   
+   implementing a Queue? A linked list points to a specific set of nodes in memory, 
+   whereas an array is a side by side series of values stored in an object in one place in memory cached space   
 Stretch: What if you could only use instances of your Stack class to implement the Queue?
          What would that look like? How many Stacks would you need? Try it!
 """
+
+from linked_list.py import LinkedList 
+# queue with a simple python list, O(n) for add and O(1) for del
 class Queue:
     def __init__(self):
         self.size = 0
-        # self.storage = ?
-    
-    def __len__(self):
-        pass
+        self.storage = [] 
 
-    def enqueue(self, value):
-        pass
-
+    def enqueue(self, item):
+        self.storage.append(item)
+        self.size += 1
+  
     def dequeue(self):
-        pass
+        if self.size > 0:
+            item = self.storage[0]
+            self.storage = self.storage[1:]
+            self.size -= 1
+            return item
+        else:
+            return None 
+
+    def len(self):
+        return self.size
+
+# Use linked list class for now, should add double linked list for runtime O(1)
+# to avoid tree traversal as it is not a priority
+
+class QueueLL:
+    def __init__(self):
+        self.size = 0
+        self.storage = LinkedList()
+
+    def enqueue(self, item):
+        self.storage.append(item)
+        self.size += 1
+  
+    def dequeue(self):
+        if self.size > 0:
+            item = self.storage[0]
+            self.storage = self.storage[1:]
+            self.size -= 1
+            return item
+        else:
+            return None 
+
+    def len(self):
+        return self.size
