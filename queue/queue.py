@@ -27,8 +27,7 @@ class Queue:
   
     def dequeue(self):
         if self.size > 0:
-            item = self.storage[0]
-            self.storage = self.storage[1:]
+            item = self.storage.pop(0)
             self.size -= 1
             return item
         else:
@@ -44,19 +43,6 @@ class QueueLL:
     def __init__(self):
         self.size = 0
         self.storage = LinkedList()
-
-    def enqueue(self, item):
-        self.storage.append(item)
-        self.size += 1
-  
-    def dequeue(self):
-        if self.size > 0:
-            item = self.storage[0]
-            self.storage = self.storage[1:]
-            self.size -= 1
-            return item
-        else:
-            return None 
 
     def len(self):
         return self.size
