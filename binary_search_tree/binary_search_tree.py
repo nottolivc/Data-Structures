@@ -9,6 +9,53 @@ This part of the project comprises two days:
 2. Implement the `in_order_print`, `bft_print`, and `dft_print` methods
    on the BSTNode class.
 """
+import sys
+sys.path.append('../doubly_linked_list')
+from doubly_linked_list import DoublyLinkedList
+
+
+class Queue:
+    def __init__(self):
+        self.size = 0
+        # Why is our DLL a good choice to store our elements?
+        # A DLL is a good choice as traversing the queue isn't our top prioirty. 
+        # We only which to access the end and start of our list so a DLL is our best option here
+        # self.storage = ?
+        self.storage = DoublyLinkedList()
+
+    def enqueue(self, value):
+        self.size += 1
+        self.storage.add_to_tail(value)
+
+    def dequeue(self):
+        if self.size > 0:
+            self.size -= 1
+            return self.storage.remove_from_head()
+
+    def len(self):
+        return self.size
+
+class Stack:
+    def __init__(self):
+        self.size = 0
+        # Why is our DLL a good choice to store our elements?
+        # I am using a DLL here for similar reasons as the queue. 
+        # Traversing isn't soemthing we wish to do, only add and remove elements at one end of the list
+        # self.storage = ?
+        self.storage = DoublyLinkedList()
+
+    def push(self, value):
+        self.storage.add_to_head(value)
+        self.size += 1
+
+    def pop(self):
+        if self.size > 0:
+            self.size -= 1
+            return self.storage.remove_from_head()
+
+    def len(self):
+        return self.size
+
 class BSTNode:
     def __init__(self, value):
         self.value = value
@@ -17,45 +64,97 @@ class BSTNode:
 
     # Insert the given value into the tree
     def insert(self, value):
-        pass
+        if value < self.value:
+            if self.left:
+                self.left.insert(value)
+            else:
+                self.left = BSTNode(value)
+        else:
+            if self.right:
+                self.right.insert(value)
+            else:
+                self.right = BSTNode(value)
 
-    # Return True if the tree contains the value
-    # False if it does not
+    # Return True if has value
     def contains(self, target):
-        pass
+        if self.value == target:
+            return True
+        if self.right is None and self.left is None:
+            return False
+        if self.left and target < self.value:
+            return self.left.contains(target)
+        if self.right and target > self.value:
+            return self.right.contains(target)
 
-    # Return the maximum value found in the tree
+    # Return maximum value in tree
     def get_max(self):
-        pass
+        if self.right:
+            return self.right.get_max()
+        else:
+            return self.value
 
-    # Call the function `fn` on the value of each node
-    def for_each(self, fn):
-        pass
+    # Call the function `cb` on the value of each node
+    # You may use a recursive or iterative approach
+    def for_each(self, cb):
+        cb(self.value)
+        if self.left:
+            self.left.for_each(cb)
+        if self.right:
+            self.right.for_each(cb)
 
-    # Part 2 -----------------------
+    # DAY 2 
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+        if self.left:
+            self.left.in_order_print(node)
+        print(self.value)
+        if self.right:
+            self.right.in_order_print(node)
 
-    # Print the value of every node, starting with the given node,
-    # in an iterative breadth first traversal
+    # # Print the value of every node, starting with the given node, iterative
     def bft_print(self, node):
-        pass
+        level = Queue()
+        level.enqueue(node)
+        while level.len() > 0:
+            next_level = Queue()
+            while level.len() > 0:
+                cur_node = level.dequeue()
+                if cur_node.left:
+                    next_level.enqueue(cur_node.left)
+                if cur_node.right:
+                    next_level.enqueue(cur_node.right)
+                print(cur_node.value)
+            level = next_level
 
-    # Print the value of every node, starting with the given node,
-    # in an iterative depth first traversal
+    # # Print the value of every node, starting with the given node,
+    # # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
+        branches = Stack()
+        branches.push(node)
+        while branches.len() > 0:
+            cur_node = branches.pop()
+            print(cur_node.value)
+            if cur_node.left:
+                branches.push(cur_node.left)
+            if cur_node.right:
+                branches.push(cur_node.right)
 
-    # Stretch Goals -------------------------
+    # STRETCH Goals -------------------------
     # Note: Research may be required
-
-    # Print Pre-order recursive DFT
+    # Print In-order recursive DFT
     def pre_order_dft(self, node):
-        pass
+        print(node.value)
+        if node.left:
+            self.pre_order_dft(node.left)
+        if node.right:
+            self.pre_order_dft(node.right)
 
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
-        pass
+        if node.left:
+            self.post_order_dft(node.left)
+        if node.right:
+            self.post_order_dft(node.right)
+        print(node.value)
