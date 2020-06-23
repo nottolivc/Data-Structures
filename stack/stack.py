@@ -25,9 +25,8 @@ class Stack:
 
     def pop(self):
         if len(self.storage) == 0:
-            print("There's nothing to remove.")
             return None
         else:
-            removed = self.storage.pop(self.size - 1)
+            remove_node = self.storage.pop(self.size - 1)
             self.size -= 1
-            return removed
+            return remove_node
