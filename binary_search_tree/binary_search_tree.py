@@ -18,8 +18,6 @@ class Queue:
     def __init__(self):
         self.size = 0
         # Why is our DLL a good choice to store our elements?
-        # A DLL is a good choice as traversing the queue isn't our top prioirty. 
-        # We only which to access the end and start of our list so a DLL is our best option here
         # self.storage = ?
         self.storage = DoublyLinkedList()
 
@@ -39,8 +37,6 @@ class Stack:
     def __init__(self):
         self.size = 0
         # Why is our DLL a good choice to store our elements?
-        # I am using a DLL here for similar reasons as the queue. 
-        # Traversing isn't soemthing we wish to do, only add and remove elements at one end of the list
         # self.storage = ?
         self.storage = DoublyLinkedList()
 
