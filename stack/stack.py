@@ -16,6 +16,9 @@ class Stack:
         self.size = 0
         self.storage = []
 
+    def __str__(self):
+        return f"{self.storage}"
+        
     def __len__(self):
         return len(self.storage)
 
@@ -30,3 +33,14 @@ class Stack:
             remove_node = self.storage.pop(self.size - 1)
             self.size -= 1
             return remove_node
+
+
+x = Stack()
+
+x.push(1)
+x.push(2)
+x.push(3)
+x.push(4)
+x.pop()
+
+print(x)
