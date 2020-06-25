@@ -85,6 +85,27 @@ class BSTNode:
             self.right.in_order_print(node)
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
+    class Queue:
+        def __init__(self):
+            self.size = 0
+            self.storage = []
+
+        def __len__(self):
+            return self.size
+
+        def enqueue(self, value):
+            add_node = self.storage.insert(len(self.storage), value)
+            self.size += 1
+            return add_node
+
+        def dequeue(self):
+            if(self.size > 0):
+                remove_node = self.storage.pop(0)
+                self.size -= 1
+                return remove_node
+            else:
+                return None
+
     def bft_print(self, node):
         # create a queue for nodes
         # add the first node to the queue
@@ -92,7 +113,18 @@ class BSTNode:
             # remove the first node from the queue
             # print the removed node 
             # add all children into the queue
-        pass
+        level = Queue()
+        level.enqueue(node)
+        while level.len() > 0:
+            next_level = Queue()
+            while level.len() > 0:
+                cur_node = level.dequeue()
+                if cur_node.left:
+                    next_level.enqueue(cur_node.left)
+                if cur_node.right:
+                    next_level.enqueue(cur_node.right)
+                print(cur_node.value)
+            level = next_level
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):

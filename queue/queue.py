@@ -48,6 +48,9 @@ class Queue:
         self.size = 0
         self.storage = []
 
+    def __str__(self):
+        return f"{self.storage}"
+
     def __len__(self):
         return self.size
 
@@ -63,3 +66,13 @@ class Queue:
             return remove_node
         else:
             return None
+
+x = Queue()
+x.enqueue(1)
+x.enqueue(2)
+x.enqueue(3)
+x.enqueue(4)
+
+x.dequeue()
+
+print(x)
