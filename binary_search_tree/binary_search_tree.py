@@ -58,6 +58,9 @@ class BSTNode:
         self.left = None
         self.right = None
 
+    def __str__(self):
+        return f"{self.value}"
+
     # Insert the given value into the tree
     def insert(self, value):
         if value < self.value:
@@ -154,3 +157,14 @@ class BSTNode:
         if node.right:
             self.post_order_dft(node.right)
         print(node.value)
+
+
+root = BSTNode(8)
+root.insert(3)
+root.insert(9)
+root.insert(10)
+root.insert(12)
+# lambda function is like ()=>
+print_node = lambda x: print(x)
+
+root.for_each(print_node)
