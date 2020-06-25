@@ -117,15 +117,15 @@ class BSTNode:
         level = Queue()
         level.enqueue(node)
         while level.len() > 0:
-            next_level = Queue()
-            while level.len() > 0:
-                cur_node = level.dequeue()
-                if cur_node.left:
-                    next_level.enqueue(cur_node.left)
-                if cur_node.right:
-                    next_level.enqueue(cur_node.right)
-                print(cur_node.value)
-            level = next_level
+        # next_level = Queue()
+        # while level.len() > 0:
+            cur_node = level.dequeue()
+            print(cur_node.value)
+            if cur_node.left:
+                level.enqueue(cur_node.left)
+            if cur_node.right:
+                level.enqueue(cur_node.right)
+        # level = next_level
 
     # # Print the value of every node, starting with the given node,
     # # in an iterative depth first traversal
